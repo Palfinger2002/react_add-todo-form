@@ -6,8 +6,8 @@ import {
   todoAggregate,
   TodoAggregate,
 } from './entities/todo/domain/TodoAggregate';
-import { TodoList } from './entities/todo/components/TodoList/TodoList';
-import { CreateForm } from './entities/todo/components/CreateForm/CreateForm';
+import { TodoList } from './components/TodoList/TodoList';
+import { CreateForm } from './components/CreateForm';
 import { useState } from 'react';
 
 const todosAggregate: TodoAggregate[] = todoAggregate.getTodoAggregates(
