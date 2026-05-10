@@ -4,10 +4,11 @@ import { TodoAggregate } from '../../entities/todo/domain/TodoAggregate';
 
 type CreateFormProps = {
   users: User[];
+  todos: TodoAggregate[];
   onSubmit: (todo: TodoAggregate) => void;
 };
 
-export function CreateForm({ users, onSubmit }: CreateFormProps) {
+export function CreateForm({ users, onSubmit, todos }: CreateFormProps) {
   const [newTitle, setNewTitle] = useState('');
   const [titleError, setTitleError] = useState('');
 
@@ -16,9 +17,6 @@ export function CreateForm({ users, onSubmit }: CreateFormProps) {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    setNewTitle('');
-    setTodoUserIdError('');
 
     const preparedTitle = newTitle.trim();
 
@@ -40,8 +38,10 @@ export function CreateForm({ users, onSubmit }: CreateFormProps) {
       return;
     }
 
+    const maxId = Math.max(0, ...todos.map(todo => todo.id))
+
     const newTodo: TodoAggregate = {
-      id: Date.now(),
+      id: maxId + 1,
       title: preparedTitle,
       completed: false,
       userId: newTodoUserId,
@@ -61,7 +61,11 @@ export function CreateForm({ users, onSubmit }: CreateFormProps) {
           type="text"
           data-cy="titleInput"
           value={newTitle}
-          onChange={event => setNewTitle(event.target.value.trimStart())}
+          placeholder='Please enter a title'
+          onChange={event => {
+            setNewTitle(event.target.value.trimStart());
+            setTitleError('');
+          }}
         />
 
         {titleError && <span className="error">{titleError}</span>}
@@ -71,7 +75,10 @@ export function CreateForm({ users, onSubmit }: CreateFormProps) {
         <select
           data-cy="userSelect"
           value={newTodoUserId}
-          onChange={event => setNewTodoUserId(Number(event.target.value))}
+          onChange={event => {
+            setNewTodoUserId(Number(event.target.value));
+            setTodoUserIdError('');
+          }}
         >
           <option value={0} disabled>
             Choose a user
