@@ -26,7 +26,11 @@ export const App = () => {
     <div className="App">
       <h1>Add todo form</h1>
 
-      <CreateForm users={usersFromServer} onSubmit={handleAddTodo} todos={todos}/>
+      <CreateForm
+        users={usersFromServer}
+        onSubmit={handleAddTodo}
+        todos={todos}
+      />
 
       <TodoList todos={todos} />
     </div>

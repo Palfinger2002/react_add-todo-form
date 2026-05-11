@@ -38,7 +38,10 @@ export function CreateForm({ users, onSubmit, todos }: CreateFormProps) {
       return;
     }
 
-    const maxId = Math.max(0, ...todos.map(todo => todo.id))
+    setNewTitle('');
+    setNewTodoUserId(0);
+
+    const maxId = Math.max(0, ...todos.map(todo => todo.id));
 
     const newTodo: TodoAggregate = {
       id: maxId + 1,
@@ -50,8 +53,6 @@ export function CreateForm({ users, onSubmit, todos }: CreateFormProps) {
 
     onSubmit(newTodo);
 
-    setNewTitle('');
-    setNewTodoUserId(0);
   };
 
   return (
@@ -61,10 +62,11 @@ export function CreateForm({ users, onSubmit, todos }: CreateFormProps) {
           type="text"
           data-cy="titleInput"
           value={newTitle}
-          placeholder='Please enter a title'
+          placeholder="Please enter a title"
           onChange={event => {
             setNewTitle(event.target.value.trimStart());
             setTitleError('');
+            setTodoUserIdError('');
           }}
         />
 
@@ -78,6 +80,7 @@ export function CreateForm({ users, onSubmit, todos }: CreateFormProps) {
           onChange={event => {
             setNewTodoUserId(Number(event.target.value));
             setTodoUserIdError('');
+            setTitleError('');
           }}
         >
           <option value={0} disabled>
