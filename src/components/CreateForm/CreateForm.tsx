@@ -52,7 +52,6 @@ export function CreateForm({ users, onSubmit, todos }: CreateFormProps) {
     };
 
     onSubmit(newTodo);
-
   };
 
   return (
@@ -66,7 +65,6 @@ export function CreateForm({ users, onSubmit, todos }: CreateFormProps) {
           onChange={event => {
             setNewTitle(event.target.value.trimStart());
             setTitleError('');
-            setTodoUserIdError('');
           }}
         />
 
@@ -80,7 +78,6 @@ export function CreateForm({ users, onSubmit, todos }: CreateFormProps) {
           onChange={event => {
             setNewTodoUserId(Number(event.target.value));
             setTodoUserIdError('');
-            setTitleError('');
           }}
         >
           <option value={0} disabled>
